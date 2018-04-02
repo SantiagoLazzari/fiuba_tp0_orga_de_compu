@@ -28,15 +28,26 @@
 
 #define OPSTRING "r:c:w:H:s:o:"
 
+void set_resolution(char* optarg, parse_options_t *self){
+  char *token;
+  char separator[2] = "x";
+  token = strtok(optarg, separator);
+  sscanf(token, "%d", &self->resolution.width);
+  token = strtok(NULL, separator);
+  sscanf(token, "%d", &self->resolution.height);
+}
+
 int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
+  complex_t *aux;
+
   char option = '\0';
 
-  self->resolution.width = 4000;
-  self->resolution.height = 4000;
-  self->center = 0 + 0*I;
+  self->resolution.width = 640;
+  self->resolution.height = 480;
+  self->center = complex_new(0,0);
   self->width = 2;
   self->height = 2;
-  self->seed = -0.726895347709114071439 + 0.188887129043845954792*I ;
+  self->seed = complex_new(-0.726895347709114071439,0.188887129043845954792);
   self->output = stdout;
 
   while (option != -1)
@@ -57,35 +68,48 @@ int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
 
       switch (option) {
         case R_ARG:
-
+          set_resolution(optarg,self);
           break;
 
         case C_ARG:
-
-          printf ("option -c with value `%s'\n", optarg);
+          aux = self->center;
+          self->center =  get_complex(optarg);
+          free(aux);
+          //printf ("option -c with value `%s'\n", optarg);
           break;
 
         case W_ARG:
-          printf ("option -w with value `%s'\n", optarg);
+          sscanf(optarg, "%lf", &self->width);
+          //printf ("option -w with value `%s'\n", optarg);
           break;
 
         case H_ARG:
-          printf ("option -h with value `%s'\n", optarg);
+          sscanf(optarg, "%lf", &self->height);
+          //printf ("option -h with value `%s'\n", optarg);
           break;
 
         case S_ARG:
-          printf ("option -s with value `%s'\n", optarg);
+          aux = self->seed;
+          self->seed =  get_complex(optarg);
+          free(aux);
+          //printf ("option -s with value `%s'\n", optarg);
           break;
 
         case O_ARG:
-          printf ("option -o with value `%s'\n", optarg);
+          self->output = fopen(optarg,"w");
+          //printf ("option -o with value `%s'\n", optarg);
           break;
 
         case '?':
-          printf("Passed argument doesnt exists\n");
+          //printf("Passed argument doesnt exists\n");
           return 1;
         }
     }
 
   return 0;
+}
+
+void destroy(parse_options_t *self){
+  free(self->center);
+  free(self->seed);
 }

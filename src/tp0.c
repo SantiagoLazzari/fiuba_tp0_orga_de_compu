@@ -11,5 +11,6 @@ int main(int argc, char **argv) {
   generate_fractal_with_options(&parse_options);
 
   fclose(parse_options.output);
+  destroy(&parse_options);
   return 0;
 }
