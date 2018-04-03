@@ -75,33 +75,27 @@ int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
           aux = self->center;
           self->center =  get_complex(optarg);
           free(aux);
-          //printf ("option -c with value `%s'\n", optarg);
           break;
 
         case W_ARG:
           sscanf(optarg, "%lf", &self->width);
-          //printf ("option -w with value `%s'\n", optarg);
           break;
 
         case H_ARG:
           sscanf(optarg, "%lf", &self->height);
-          //printf ("option -h with value `%s'\n", optarg);
           break;
 
         case S_ARG:
           aux = self->seed;
           self->seed =  get_complex(optarg);
           free(aux);
-          //printf ("option -s with value `%s'\n", optarg);
           break;
 
         case O_ARG:
           self->output = fopen(optarg,"w");
-          //printf ("option -o with value `%s'\n", optarg);
           break;
 
         case '?':
-          //printf("Passed argument doesnt exists\n");
           return 1;
         }
     }

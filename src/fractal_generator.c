@@ -33,7 +33,7 @@ int generate_fractal_with_options(parse_options_t *options) {
       fprintf(options->output,"\n");
   }
 
-  
+
 
   return 0;
 }

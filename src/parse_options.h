@@ -4,7 +4,11 @@
 #include <stdio.h>
 #include "complex.h"
 
-#include "resolution.h"
+typedef struct resolution {
+  int width;
+  int height;
+} resolution_t;
+
 
 typedef struct parse_options {
 
