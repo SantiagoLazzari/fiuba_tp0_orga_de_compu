@@ -18,8 +18,8 @@ int generate_fractal_with_options(parse_options_t *options) {
   int x, y, i;
 
   fprintf(options->output, "P2\n%d %d\n255\n", r_width, r_height);
-  for ( y = 0 ; y < r_height ; ++y) {
-      for ( x = 0 ; x < r_width ; ++x) {
+  for ( y = r_height - 1 ; y >= 0 ; y--) {
+      for ( x = r_width - 1 ; x >= 0 ; x--) {
           z = complex_new(-width/2 + x*width/r_width, height/2 - y*height/r_height);
           substract(z,center,z);
           i = 0;
