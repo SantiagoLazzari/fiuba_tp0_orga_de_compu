@@ -38,7 +38,7 @@ void set(complex_t* c, double real, double i){
 }
 
 void get_signs(char* string, int* signs){
-	
+
 	if(string[0] == '-') signs[0] = -1;
 	if(strchr(string + 1, '-')) signs[1] = -1;
 }
@@ -55,14 +55,15 @@ void get_values(char* string, double* values, char* separator){
 complex_t* get_complex(char* string){
 
 	int signs[] = {1,1};
+	char s[2] = "-";
+	double values[2];
+
  	get_signs(string,signs);
 
  	if(signs[0] == -1) string +=1;
 
-	char s[2] = "-";
   if(signs[1] == 1) s[0] = '+';
-  
-  double values[2];
+
   get_values(string,values,s);
 
   values[0] *= signs[0];
