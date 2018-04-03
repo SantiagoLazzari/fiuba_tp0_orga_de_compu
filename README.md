@@ -2,7 +2,9 @@
 
 ### Ejecución
 
+```bash
 ./tp0 -r <resolution> -c <center> -w <width> -h <height> -s <seed> -0 <output>
+```
 
 ### informe
 
