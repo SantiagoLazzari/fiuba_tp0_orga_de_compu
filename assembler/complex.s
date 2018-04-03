@@ -390,6 +390,8 @@ get_complex:
 	sw	$2,24($fp)
 	lw	$2,$LC2+4
 	sw	$2,28($fp)
+	lhu	$2,$LC3
+	sh	$2,32($fp)
 	lw	$4,72($fp)
 	addu	$5,$fp,24
 	la	$25,get_signs
@@ -401,8 +403,6 @@ get_complex:
 	addu	$2,$2,1
 	sw	$2,72($fp)
 $L29:
-	lhu	$2,$LC3
-	sh	$2,32($fp)
 	lw	$3,28($fp)
 	li	$2,1			# 0x1
 	bne	$3,$2,$L30
