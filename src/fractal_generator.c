@@ -22,11 +22,11 @@ int generate_fractal_with_options(parse_options_t *options) {
       for ( x = r_width - 1 ; x >= 0 ; x--) {
           z.real = -width/2 + x*width/r_width;
           z.i = height/2 - y*height/r_height;
-          substract(&z,center,&z);
+          z = substract(&z,center);
           i = 0;
           while (complex_abs(&z) < 2 && ++i < WHITE_COLOR) {
-            multiply(&z,&z,&z);
-            add(&z,c,&z);
+            z = multiply(&z,&z);
+            z = add(&z,c);
           }
           fprintf(options->output,"%4d", i);
       }

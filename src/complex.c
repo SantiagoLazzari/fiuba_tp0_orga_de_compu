@@ -5,29 +5,30 @@
 #include <stdio.h>
 
 
-void add(complex_t* c1, complex_t* c2, complex_t* dest){
-	dest->real = c1->real + c2->real;
-	dest->i = c1->i + c2->i;
+complex_t add(complex_t* c1, complex_t* c2){
+	complex_t c;
+	c.real = c1->real + c2->real;
+	c.i = c1->i + c2->i;
+	return c;
 }
 
-void substract(complex_t* c1, complex_t* c2, complex_t* dest){
-	dest->real = c1->real - c2->real;
-	dest->i =  c1->i - c2->i;
+complex_t substract(complex_t* c1, complex_t* c2){
+	complex_t c;
+	c.real = c1->real - c2->real;
+	c.i =  c1->i - c2->i;
+	return c;
 }
 
-void multiply(complex_t* c1, complex_t* c2, complex_t* dest){
+complex_t multiply(complex_t* c1, complex_t* c2){
+	complex_t c;
 	double real = (c1->real)*(c2->real) - (c1->i)*(c2->i);
-	dest->i = (c1->real)*(c2->i) + (c1->i)*(c2->real);
-	dest->real = real;
+	c.i = (c1->real)*(c2->i) + (c1->i)*(c2->real);
+	c.real = real;
+	return c;
 }
 
 double complex_abs(complex_t* c){
 	return sqrt(pow((c->real),2) + pow((c->i),2));
-}
-
-void set(complex_t* c, double real, double i){
-	c->real = real;
-	c->i = i;
 }
 
 int set_complex(char* string, complex_t* c){
