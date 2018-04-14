@@ -62,7 +62,7 @@ int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
         case R_ARG:
           scan = sscanf(optarg, "%dx%d", &self->resolution.width, &self->resolution.height);
           if((scan != 2) || (self->resolution.width <= 0) || (self->resolution.height <= 0)){
-            fprintf(stderr,"parametro incorrecto en -r: %s, se espera formato NUMxNUM (positivos)\n", optarg);
+            fprintf(stderr,"parametro incorrecto en -r: %s, se espera formato INTxINT (positivos)\n", optarg);
             return 1;
           }
           break;
@@ -71,6 +71,9 @@ int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
           aux = self->center;
           self->center =  get_complex(optarg);
           free(aux);
+          if(!(self->seed)){
+            fprintf(stderr,"parametro incorrecto en -s: %s, se espera formato FLOAT+/-FLOATi\n", optarg);
+          }
           break;
 
         case W_ARG:
@@ -93,6 +96,9 @@ int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
           aux = self->seed;
           self->seed =  get_complex(optarg);
           free(aux);
+          if(!(self->seed)){
+            fprintf(stderr,"parametro incorrecto en -s: %s, se espera formato FLOAT+/-FLOATi\n", optarg);
+          }
           break;
 
         case O_ARG:

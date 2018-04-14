@@ -37,39 +37,11 @@ void set(complex_t* c, double real, double i){
 	c->i = i;
 }
 
-void get_signs(char* string, int* signs){
-
-	if(string[0] == '-') signs[0] = -1;
-	if(strchr(string + 1, '-')) signs[1] = -1;
-}
-
-void get_values(char* string, double* values, char* separator){
-	char *token;
-  token = strtok(string, separator);
-  sscanf(token, "%lf", values);
-  token = strtok(NULL, separator);
-  token[strlen(token)-1] = 0;
-  sscanf(token, "%lf", values + 1);
-}
-
 complex_t* get_complex(char* string){
-
-	int signs[] = {1,1};
-	char s[2] = "-";
-	double values[2];
-
- 	get_signs(string,signs);
-
- 	if(signs[0] == -1) string +=1;
-
-  if(signs[1] == 1) s[0] = '+';
-
-  get_values(string,values,s);
-
-  values[0] *= signs[0];
-  values[1] *= signs[1];
-
-
-
-  return complex_new(values[0],values[1]);
+	complex_t* c = complex_new(0,0);
+	int scan = sscanf(string, "%lf%lfi", &c->real,&c->i);
+	if((scan != 2)){
+    return NULL;
+  }
+  return c;
 }
