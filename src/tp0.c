@@ -7,7 +7,8 @@
 int main(int argc, char **argv) {
   parse_options_t parse_options;
 
-  parse_options_with_args(&parse_options, argc, argv);
+	int err = parse_options_with_args(&parse_options, argc, argv);
+	if(err) return err;
   generate_fractal_with_options(&parse_options);
 
   fclose(parse_options.output);

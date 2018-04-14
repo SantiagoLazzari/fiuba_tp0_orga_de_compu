@@ -28,17 +28,9 @@
 
 #define OPSTRING "r:c:w:H:s:o:"
 
-void set_resolution(char* optarg, parse_options_t *self){
-  char *token;
-  char separator[2] = "x";
-  token = strtok(optarg, separator);
-  sscanf(token, "%d", &self->resolution.width);
-  token = strtok(NULL, separator);
-  sscanf(token, "%d", &self->resolution.height);
-}
-
 int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
   complex_t *aux;
+  int scan;
 
   char option = '\0';
 
@@ -68,7 +60,13 @@ int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
 
       switch (option) {
         case R_ARG:
-          set_resolution(optarg,self);
+          //set_resolution(optarg,self);
+          scan = sscanf(optarg, "%dx%d", &self->resolution.width, &self->resolution.height);
+          printf("scan: %d\n", scan);
+          if(scan == 0){
+            fprintf(stderr,"parametro incorrecto en -r: %s, se espera formato NUMxNUM \n", optarg);
+            return 1;
+          }
           break;
 
         case C_ARG:
@@ -78,7 +76,12 @@ int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
           break;
 
         case W_ARG:
-          sscanf(optarg, "%lf", &self->width);
+          scan = sscanf(optarg, "%lf", &self->width);
+          printf("scan: %d\n", scan);
+          if(scan == 0){
+            fprintf(stderr,"parametro incorrecto en -w: %s, se espera un float \n", optarg);
+            return 1;
+          }
           break;
 
         case H_ARG:
