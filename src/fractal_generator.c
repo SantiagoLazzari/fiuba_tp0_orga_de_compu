@@ -15,7 +15,7 @@ int generate_fractal_with_options(parse_options_t *options) {
   complex_t* center = &(options->center);
   complex_t* c = &(options->seed);
   complex_t z;
-  int x, y, i;
+  int x, y, i, err;
 
   fprintf(options->output, "P2\n%d %d\n255\n", r_width, r_height);
   for ( y = r_height - 1 ; y >= 0 ; y--) {
@@ -28,12 +28,20 @@ int generate_fractal_with_options(parse_options_t *options) {
             z = multiply(&z,&z);
             z = add(&z,c);
           }
-          fprintf(options->output,"%4d", i);
+          err = fprintf(options->output,"%4d", i);
+          if (err < 0){
+            fprintf(stderr, "Error de I/O \n");
+          }
+          fclose(options->output);
+          return 1;
       }
-      fprintf(options->output,"\n");
+      err = fprintf(options->output,"\n");
+      if (err < 0){
+        fprintf(stderr, "Error de I/O \n");
+      }
+      fclose(options->output);
+      return 1;
   }
-
-
 
   return 0;
 }
