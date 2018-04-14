@@ -13,15 +13,14 @@ typedef struct resolution {
 typedef struct parse_options {
 
   resolution_t resolution;
-  complex_t* center;
+  complex_t center;
   double width;
   double height;
-  complex_t* seed;
+  complex_t seed;
   FILE *output;
 
 } parse_options_t;
 
 int parse_options_with_args(parse_options_t *self, int argc, char **argv);
-void destroy(parse_options_t *self);
 
 #endif

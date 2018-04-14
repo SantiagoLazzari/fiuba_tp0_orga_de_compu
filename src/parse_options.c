@@ -32,15 +32,18 @@
 int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
   complex_t *aux;
   int scan;
+  int err;
 
   char option = '\0';
 
   self->resolution.width = 640;
   self->resolution.height = 480;
-  self->center = complex_new(0,0);
+  self->center.real = 0;
+  self->center.i = 0;
   self->width = 2;
   self->height = 2;
-  self->seed = complex_new(-0.726895347709114071439,0.188887129043845954792);
+  self->seed.real = -0.726895347709114071439;
+  self->seed.i = 0.188887129043845954792;
   self->output = stdout;
 
   while (option != -1)
@@ -69,11 +72,9 @@ int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
           break;
 
         case C_ARG:
-          aux = self->center;
-          self->center =  get_complex(optarg);
-          free(aux);
-          if(!(self->seed)){
-            fprintf(stderr,"parametro incorrecto en -s: %s, se espera formato FLOAT+/-FLOATi\n", optarg);
+          err = set_complex(optarg, &self->center);
+          if(err){
+            fprintf(stderr,"parametro incorrecto en -c: %s, se espera formato FLOAT+/-FLOATi\n", optarg);
           }
           break;
 
@@ -94,10 +95,8 @@ int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
           break;
 
         case S_ARG:
-          aux = self->seed;
-          self->seed =  get_complex(optarg);
-          free(aux);
-          if(!(self->seed)){
+          err = set_complex(optarg, &self->seed);
+          if(err){
             fprintf(stderr,"parametro incorrecto en -s: %s, se espera formato FLOAT+/-FLOATi\n", optarg);
           }
           break;
@@ -116,9 +115,4 @@ int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
     }
 
   return 0;
-}
-
-void destroy(parse_options_t *self){
-  free(self->center);
-  free(self->seed);
 }

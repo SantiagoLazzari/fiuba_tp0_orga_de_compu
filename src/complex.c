@@ -4,13 +4,6 @@
 #include <string.h>
 #include <stdio.h>
 
-complex_t* complex_new(double real, double i){
-	complex_t* c = malloc(sizeof(complex_t));
-	if(!c) return NULL;
-	c->real = real;
-	c->i = i;
-	return c;
-}
 
 void add(complex_t* c1, complex_t* c2, complex_t* dest){
 	dest->real = c1->real + c2->real;
@@ -37,11 +30,10 @@ void set(complex_t* c, double real, double i){
 	c->i = i;
 }
 
-complex_t* get_complex(char* string){
-	complex_t* c = complex_new(0,0);
+int set_complex(char* string, complex_t* c){
 	int scan = sscanf(string, "%lf%lfi", &c->real,&c->i);
 	if((scan != 2)){
-    return NULL;
+    return 1;
   }
-  return c;
+  return 0;
 }
