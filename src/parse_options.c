@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include <string.h>
+#include <errno.h>
 
 #include "parse_options.h"
 
@@ -103,6 +104,10 @@ int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
 
         case O_ARG:
           self->output = fopen(optarg,"w");
+          if(!(self->output)){
+            fprintf(stderr, "error al abrir el archivo: %s. %s\n", optarg, strerror(errno));
+            return errno;
+          }
           break;
 
         case '?':
