@@ -60,11 +60,9 @@ int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
 
       switch (option) {
         case R_ARG:
-          //set_resolution(optarg,self);
           scan = sscanf(optarg, "%dx%d", &self->resolution.width, &self->resolution.height);
-          printf("scan: %d\n", scan);
-          if(scan == 0){
-            fprintf(stderr,"parametro incorrecto en -r: %s, se espera formato NUMxNUM \n", optarg);
+          if((scan != 2) || (self->resolution.width <= 0) || (self->resolution.height <= 0)){
+            fprintf(stderr,"parametro incorrecto en -r: %s, se espera formato NUMxNUM (positivos)\n", optarg);
             return 1;
           }
           break;
@@ -77,15 +75,18 @@ int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
 
         case W_ARG:
           scan = sscanf(optarg, "%lf", &self->width);
-          printf("scan: %d\n", scan);
-          if(scan == 0){
-            fprintf(stderr,"parametro incorrecto en -w: %s, se espera un float \n", optarg);
+          if((scan != 1) || (self->width <= 0)){
+            fprintf(stderr,"parametro incorrecto en -w: %s, se espera un float positivo\n", optarg);
             return 1;
           }
           break;
 
         case H_ARG:
-          sscanf(optarg, "%lf", &self->height);
+          scan = sscanf(optarg, "%lf", &self->height);
+          if((scan != 1) || (self->height <= 0)){
+            fprintf(stderr,"parametro incorrecto en -H: %s, se espera un float positivo\n", optarg);
+            return 1;
+          }
           break;
 
         case S_ARG:
