@@ -1,5 +1,6 @@
 #!/bin/sh
 
+rm -rf bin
 ./make.sh tp
 
 AUX_IMAGE=aux.pgm
