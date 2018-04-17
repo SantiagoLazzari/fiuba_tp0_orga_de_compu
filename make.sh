@@ -5,5 +5,5 @@ if [[ $1 == tp ]]; then
     gcc -Wall -pedantic -std=c89 -c src/$file.c -o bin/$file.o
   done
 
-  gcc -o tp0 $(ls bin/*)
+  gcc -o tp0 $(ls bin/*) -lm
 fi
