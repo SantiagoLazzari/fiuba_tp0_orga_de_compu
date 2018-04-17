@@ -23,7 +23,7 @@ RESULT=$(diff out/julia.pgm $AUX_IMAGE)
 validation $RESULT
 
 echo "Seed  0.279+0 i test"
-./tp0 −s 0.279+0i -o $AUX_IMAGE
+./tp0 -s 0.279+0i -o $AUX_IMAGE
 RESULT=$(diff out/julia_seed.pgm $AUX_IMAGE)
 validation $RESULT
 
