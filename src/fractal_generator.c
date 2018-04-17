@@ -31,16 +31,17 @@ int generate_fractal_with_options(parse_options_t *options) {
           err = fprintf(options->output,"%4d", i);
           if (err < 0){
             fprintf(stderr, "Error de I/O \n");
+            fclose(options->output);
+            return 1;
           }
-          fclose(options->output);
-          return 1;
       }
       err = fprintf(options->output,"\n");
       if (err < 0){
         fprintf(stderr, "Error de I/O \n");
+        fclose(options->output);
+        return 1;
       }
-      fclose(options->output);
-      return 1;
+      
   }
 
   return 0;

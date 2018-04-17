@@ -30,7 +30,6 @@
 #define OPSTRING "r:c:w:H:s:o:"
 
 int parse_options_with_args(parse_options_t *self, int argc, char **argv) {
-  complex_t *aux;
   int scan;
   int err;
 
